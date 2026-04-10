@@ -2,9 +2,9 @@ name: CI - Next.js Build & Lint
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, development ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, development ]
 
 jobs:
   validate:

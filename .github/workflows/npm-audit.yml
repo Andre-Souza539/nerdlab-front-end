@@ -4,9 +4,9 @@ on:
   schedule:
     - cron: '0 0 * * 0' # Weekly scan
   push:
-    branches: [ main, master ]
+    branches: [ main, master, development ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, development ]
 
 jobs:
   audit:
