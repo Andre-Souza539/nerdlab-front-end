@@ -29,10 +29,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ vars.SONAR_URL }}
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
           args: >
             -Dsonar.projectKey=${{ github.event.repository.name }}
             -Dsonar.sources=src
             -Dsonar.host.url=${{ vars.SONAR_URL }}
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.ws.timeout=300
