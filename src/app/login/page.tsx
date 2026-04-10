@@ -30,7 +30,7 @@ export default function LoginPage() {
       } else {
         router.push('/dashboard');
       }
-    } catch (err: any) {
+    } catch {
       setError('Credenciais inválidas. Tente novamente.');
     } finally {
       setLoading(false);
@@ -44,7 +44,7 @@ export default function LoginPage() {
     try {
       await api.patch('/api/v1/auth/change-password', { newPassword });
       router.push('/dashboard');
-    } catch (err: any) {
+    } catch {
       setError('Erro ao mudar senha. Tente novamente.');
     } finally {
       setLoading(false);

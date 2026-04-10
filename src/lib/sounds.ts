@@ -5,7 +5,8 @@ class SoundManager {
 
   private initContext() {
     if (!this.audioContext) {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      this.audioContext = new AudioContextClass();
     }
     if (this.audioContext.state === 'suspended') {
       this.audioContext.resume();
@@ -47,7 +48,6 @@ class SoundManager {
 
   // Som de processamento (sequência rápida de pulsos)
   playDataStream() {
-    const now = Date.now();
     for(let i = 0; i < 3; i++) {
         setTimeout(() => {
             this.playTechClick(1800 + (i * 200), 0.02);
@@ -62,8 +62,8 @@ class SoundManager {
   }
 
   // Shorthands para compatibilidade com os triggers atuais
-  playBlip() {
-    this.playTechClick(2200, 0.02);
+  playBlip(freq?: number, duration?: number) {
+    this.playTechClick(freq || 2200, duration || 0.02);
   }
 
   playData() {
@@ -77,4 +77,4 @@ export const sounds = typeof window !== 'undefined' ? new SoundManager() : {
   playTechClick: () => {},
   playDataStream: () => {},
   playBoot: () => {}
-};
+} as unknown as SoundManager;

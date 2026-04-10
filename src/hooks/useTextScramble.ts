@@ -10,7 +10,7 @@ export const useTextScramble = (text: string, active = true) => {
   const scramble = useCallback(() => {
     let iteration = 0;
     const interval = setInterval(() => {
-      setDisplayText(prev => 
+      setDisplayText(() => 
         text
           .split('')
           .map((char, index) => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Code, BookOpen, Globe, Github, Laptop, Rocket, Zap, Mail, Youtube, Linkedin, ChevronRight, Terminal } from 'lucide-react';
+import { ArrowRight, Github, Laptop, Rocket, Zap, Youtube, Linkedin, Terminal } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { sounds } from '@/lib/sounds';
@@ -8,7 +8,7 @@ import { useTextScramble } from '@/hooks/useTextScramble';
 import MatrixRain from '@/components/MatrixRain';
 
 export default function Home() {
-  const transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] };
+  const transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const };
   const scrambledHero = useTextScramble('Software de Elite.');
 
   return (
@@ -207,8 +207,15 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ icon, title, description, color }: any) {
-  const colors: any = {
+interface FeatureCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  color: 'indigo' | 'purple' | 'blue';
+}
+
+function FeatureCard({ icon, title, description, color }: FeatureCardProps) {
+  const colors: Record<string, string> = {
     indigo: "text-indigo-400 group-hover:bg-indigo-500/10",
     purple: "text-purple-400 group-hover:bg-purple-500/10",
     blue: "text-blue-400 group-hover:bg-blue-500/10"
@@ -230,7 +237,12 @@ function FeatureCard({ icon, title, description, color }: any) {
   );
 }
 
-function Stat({ value, label }: any) {
+interface StatProps {
+  value: string;
+  label: string;
+}
+
+function Stat({ value, label }: StatProps) {
   return (
     <div className="space-y-1">
       <div className="text-2xl md:text-3xl font-black text-white font-display">{value}</div>
@@ -239,7 +251,12 @@ function Stat({ value, label }: any) {
   );
 }
 
-function SocialLink({ href, icon }: any) {
+interface SocialLinkProps {
+  href: string;
+  icon: React.ReactNode;
+}
+
+function SocialLink({ href, icon }: SocialLinkProps) {
   return (
     <Link 
       href={href} 

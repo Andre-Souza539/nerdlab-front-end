@@ -1,14 +1,14 @@
 'use client';
 
-import { ArrowRight, Code, BookOpen, Globe, Github, Laptop, Rocket, Zap, Mail, Youtube, Linkedin, ChevronRight, Terminal, Cpu, Database, Layout, Shield, Server, Workflow } from 'lucide-react';
+import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { sounds } from '@/lib/sounds';
 import { useTextScramble } from '@/hooks/useTextScramble';
 import { useState, useEffect } from 'react';
 
 export default function AboutPage() {
-  const transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] };
+  const transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const };
   const scrambledName = useTextScramble('André Luiz Junqueira de Souza');
   const [logs, setLogs] = useState<string[]>([]);
 
@@ -126,7 +126,7 @@ export default function AboutPage() {
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1.1 }}
-                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] as const }}
                 className="absolute -right-16 top-0 w-[450px] h-[600px] glass flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden group shadow-2xl shadow-primary/5"
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent z-10 opacity-80" />
@@ -260,7 +260,12 @@ export default function AboutPage() {
   );
 }
 
-function ArsenalSection({ title, tags }: any) {
+interface ArsenalSectionProps {
+  title: string;
+  tags: string[];
+}
+
+function ArsenalSection({ title, tags }: ArsenalSectionProps) {
   return (
     <div className="space-y-6">
       <h4 className="text-lg font-black uppercase tracking-tight text-white/90">{title}</h4>
@@ -282,7 +287,14 @@ function ArsenalSection({ title, tags }: any) {
   );
 }
 
-function ExperienceItem({ period, company, role, desc }: any) {
+interface ExperienceItemProps {
+  period: string;
+  company: string;
+  role: string;
+  desc: string;
+}
+
+function ExperienceItem({ period, company, role, desc }: ExperienceItemProps) {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -304,7 +316,13 @@ function ExperienceItem({ period, company, role, desc }: any) {
   );
 }
 
-function DossierCard({ title, type, desc }: any) {
+interface DossierCardProps {
+  title: string;
+  type: string;
+  desc: string;
+}
+
+function DossierCard({ title, type, desc }: DossierCardProps) {
   return (
     <motion.div 
       whileHover={{ y: -5 }}
