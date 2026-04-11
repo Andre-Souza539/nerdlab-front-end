@@ -2,6 +2,7 @@
 
 import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { sounds } from '@/lib/sounds';
 import { useTextScramble } from '@/hooks/useTextScramble';
@@ -121,17 +122,22 @@ export default function AboutPage() {
               </motion.div>
             </div>
 
-            {/* Asset Moment */}
             <div className="hidden lg:block lg:col-span-4 relative">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1.1 }}
                 transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] as const }}
-                className="absolute -right-16 top-0 w-[450px] h-[600px] glass flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden group shadow-2xl shadow-primary/5"
+                className="absolute -right-16 top-0 w-[450px] h-[600px] glass grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden group shadow-2xl shadow-primary/5"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent z-10 opacity-80" />
-                <div className="text-primary/10 font-black text-9xl absolute -bottom-10 -right-10 select-none group-hover:text-primary/20 transition-colors">NL</div>
-                <UsersIcon className="w-32 h-32 text-primary/10 group-hover:text-primary/30 smooth-transition" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent z-10 opacity-60" />
+                <div className="text-primary/10 font-black text-9xl absolute -bottom-10 -right-10 select-none group-hover:text-primary/20 transition-colors z-20">NL</div>
+                <Image 
+                  src="/img/andrew-picture.png" 
+                  alt="André Souza - Engineering Dossier"
+                  fill
+                  className="object-cover object-center opacity-80 group-hover:opacity-100 group-hover:scale-105 smooth-transition"
+                  priority
+                />
               </motion.div>
             </div>
           </div>
@@ -342,21 +348,4 @@ function DossierCard({ title, type, desc }: DossierCardProps) {
   );
 }
 
-function UsersIcon({ className }: { className?: string }) {
-  return (
-    <svg 
-      className={className} 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    >
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  );
-}
+
