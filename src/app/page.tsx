@@ -1,8 +1,9 @@
 'use client';
 
-import { ArrowRight, Github, Laptop, Rocket, Zap, Youtube, Linkedin, Terminal } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Github, Laptop, Rocket, Zap, Youtube, Linkedin, Terminal, Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { sounds } from '@/lib/sounds';
 import { useTextScramble } from '@/hooks/useTextScramble';
 import MatrixRain from '@/components/MatrixRain';
@@ -10,6 +11,7 @@ import MatrixRain from '@/components/MatrixRain';
 export default function Home() {
   const transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const };
   const scrambledHero = useTextScramble('Software de Elite.');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#09090b] text-[#fafafa] overflow-x-hidden crt-flicker relative">
@@ -59,7 +61,62 @@ export default function Home() {
               Auth
             </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2 text-zinc-400 hover:text-white transition-colors"
+            onClick={() => {
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+              sounds.playBlip();
+            }}
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Mobile Menu Content */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="md:hidden absolute top-full left-4 right-4 mt-4 glass rounded-3xl p-8 z-50 border border-white/10 shadow-2xl"
+            >
+              <div className="flex flex-col gap-8 text-center">
+                <Link 
+                  href="/about" 
+                  className="text-sm font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About
+                </Link>
+                <Link 
+                  href="#" 
+                  className="text-sm font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Projects
+                </Link>
+                <Link 
+                  href="#" 
+                  className="text-sm font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Lab
+                </Link>
+                <Link 
+                  href="/login" 
+                  className="w-full py-4 bg-white text-black rounded-2xl font-black text-xs hover:bg-zinc-200 transition-all uppercase tracking-widest text-[10px]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Auth
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <main className="flex-1 w-full">
