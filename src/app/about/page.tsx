@@ -60,8 +60,8 @@ export default function AboutPage() {
           <div className="hidden md:flex items-center gap-12 glass px-8 py-3 rounded-full">
             <Link href="/" onMouseEnter={() => sounds.playBlip()} className="label-md hover:text-primary smooth-transition">Home</Link>
             <div className="w-px h-4 bg-white/10 mx-2" />
-            <Link href="#" onMouseEnter={() => sounds.playBlip()} className="label-md hover:text-primary smooth-transition">Archives</Link>
-            <Link href="#" onMouseEnter={() => sounds.playBlip()} className="label-md hover:text-primary smooth-transition">Protocols</Link>
+            <Link href="/posts" onMouseEnter={() => sounds.playBlip()} className="label-md hover:text-primary smooth-transition">Artigos</Link>
+            <Link href="/terminal" onMouseEnter={() => sounds.playBlip()} className="label-md hover:text-primary smooth-transition">Terminal</Link>
           </div>
         </div>
       </nav>
